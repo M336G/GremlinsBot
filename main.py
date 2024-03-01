@@ -5,10 +5,9 @@ from util.functions import log
 from os import listdir
 from os.path import isfile, join
 from discord.ext import commands, tasks
-import random
-import json
-import datetime
-from datetime import timedelta
+from random import choice
+from json import load
+from datetime import timedelta, datetime
 
 class aclient(Client):
     def __init__(self):
@@ -23,6 +22,7 @@ class aclient(Client):
         print(f"Logged in as {self.user}.")
         await client.change_presence(activity=Activity(type=ActivityType.watching, name="your gremlins"))
         log(f"(SUCCESS) {self.user} has been STARTED. Ping: {round (client.latency * 1000)} ms")
+        await image_rotate.start()
 
 client = aclient()
 tree = CommandTree(client)
@@ -35,12 +35,23 @@ for command in listdir("commands"):
     commandObject = client.commands[command] = globals()[module.__name__] = module
     commandObject.commandFunction(tree, client)
 
-@tasks.loop(minutes=1)
+@tasks.loop(seconds=1)
 async def image_rotate():
     with open("specialConfig.json", "r") as specialConfigFile:
-        specialConfig = json.load(specialConfigFile)
+        specialConfig = load(specialConfigFile)
         channel_id = specialConfig["gremlins_thread"]
-        post_channel_id = specialConfig["daily_gremlins"]
+        # Check if the channel is a thread if not check if it's a channel then if doesn't exists return
+        if channel_id == "null":
+            channel_id = specialConfig["gremlins"]
+            if channel_id == "null":
+                return
+        
+        post_channel_id = specialConfig["daily_gremlins_thread"]
+        # Check if the channel is a thread if not check if it's a channel then if doesn't exists return
+        if post_channel_id == "null":
+            post_channel_id = specialConfig["daily_gremlins"]
+            if post_channel_id == "null":
+                return
 
     daily_gremlins_channel = client.get_channel(post_channel_id)
     gremlins_channel = client.get_channel(channel_id)
@@ -59,7 +70,7 @@ async def image_rotate():
                     images.append((attachment.url, message.content))
 
     if images:
-        chosen_image, image_description, author = random.choice(images)
+        chosen_image, image_description, author = choice(images)
         if image_description:
             embed = Embed(title="Gremlin of the Day",description=f"**Submitted by {author.id}**\n'{image_description}'", colour=2123412)
             embed.set_image(url=f"{chosen_image}")

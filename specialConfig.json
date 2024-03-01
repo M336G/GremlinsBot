@@ -1,4 +1,6 @@
 {
-    "gremlins": 0,
-    "daily_gremlins": 0
+    "gremlins": "null",
+    "daily_gremlins": "null",
+    "gremlins_thread": "null",
+    "daily_gremlins_thread": "null"
 }
