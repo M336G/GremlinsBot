@@ -29,7 +29,7 @@ def commandFunction(tree:CommandTree, client):
                 
                 commandsDetails[elt.name] = {"description": elt.description, "id": id}
 
-        commandList = ["ping", "credits", "daily_gremlins_channel", "gremlins_channel", "help" ]
+        commandList = ["help", "ping", "credits", "gremlin", "daily_gremlins_channel", "gremlins_channel"]
 
         def getFieldContentCommand(name:str):
             response:[] = [f"/{name}", "", False]

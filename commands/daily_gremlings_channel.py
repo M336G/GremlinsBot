@@ -4,7 +4,7 @@ from util.functions import log
 import json
 
 def commandFunction(tree, client):
-    @tree.command(name="daily_gremlins_channel",description="Set the channel where gremlins will be posted everyday")
+    @tree.command(name="daily_gremlins_channel",description="Set the channel where gremlins should be posted everyday")
     @default_permissions(administrator=True)
     async def dailyGremlinsChannelCommand(interaction: Interaction, channel: TextChannel = None, thread: Thread = None):
         if channel is not None or thread is not None:
