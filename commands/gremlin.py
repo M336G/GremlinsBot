@@ -3,12 +3,17 @@ from util.functions import log
 from json import load
 from random import choice
 from json import load
-from datetime import timedelta, datetime
+from datetime import datetime
 
 def commandFunction(tree, client):
     @tree.command(name="gremlin",description="Manually tells the bot to post a gremlin (only use if it's really necessary)")
     async def gremlinCommand(interaction: Interaction):
         with open("specialConfig.json", "r") as specialConfigFile:
+            if interaction.guild.id != 1155027487957458974:
+                embed = Embed(title=" ",description="**:x: You cannot use this here!**",colour=15548997)
+                await interaction.response.send_message(" ",embed=embed, ephemeral=True)
+                log(f"(FAILED) {interaction.user} FAILED to change the Daily Gremlins Channel")
+                return
             specialConfig = load(specialConfigFile)
             channel_id = specialConfig["gremlins"]
 
@@ -28,7 +33,7 @@ def commandFunction(tree, client):
         gremlins_channel = client.get_channel(channel_id)
 
         if gremlins_channel is None:
-            embed = Embed(title=" ",description=f"**:x: Could not find any gremlins channel. Are you sure you defined it, or does it exist?**")
+            embed = Embed(title=" ",description=f"**:x: Could not find any gremlins channel. Are you sure you defined it, or does it exist?**", colour=15548997)
             await interaction.response.send_message(" ", embed=embed, ephemeral=True)
             return
 

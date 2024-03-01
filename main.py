@@ -58,7 +58,7 @@ async def image_rotate():
         gremlins_channel = client.get_channel(channel_id)
 
         if gremlins_channel is None:
-            embed = Embed(title=" ",description=f"**:x: Could not find any gremlins channel. Are you sure you defined it, or does it exist?**")
+            embed = Embed(title=" ",description=f"**:x: Could not find any gremlins channel. Are you sure you defined it, or does it exist?**", colour=15548997)
             await daily_gremlins_channel.send(" ", embed=embed)
             return
 

@@ -12,6 +12,11 @@ def commandFunction(tree, client):
                 channel_id = thread.id
             if channel is not None and thread is None:
                 channel_id = channel.id
+            if interaction.guild.id != 1155027487957458974:
+                embed = Embed(title=" ",description="**:x: You cannot use this here!**",colour=15548997)
+                await interaction.response.send_message(" ",embed=embed, ephemeral=True)
+                log(f"(FAILED) {interaction.user} FAILED to change the Daily Gremlins Channel")
+                return
             if channel is not None and thread is not None:
                 embed = Embed(title=" ",description="**:x: You cannot set 2 channels at the same time!**",colour=15548997)
                 await interaction.response.send_message(" ",embed=embed, ephemeral=True)

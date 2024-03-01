@@ -1,4 +1,4 @@
-from discord import Interaction, Embed, Member, Role, ButtonStyle
+from discord import Interaction, Embed, ButtonStyle
 from discord.ui import Button, View
 from util.functions import log
 
