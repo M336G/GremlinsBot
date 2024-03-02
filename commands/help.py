@@ -1,5 +1,5 @@
 from discord import Interaction, Embed, ButtonStyle 
-from discord.app_commands import default_permissions, ContextMenu, CommandTree
+from discord.app_commands import ContextMenu, CommandTree
 from discord.ui import Button, View
 from util.functions import log
 
@@ -29,7 +29,7 @@ def commandFunction(tree:CommandTree, client):
                 
                 commandsDetails[elt.name] = {"description": elt.description, "id": id}
 
-        commandList = ["help", "ping", "credits", "gremlin", "daily_gremlins_channel", "gremlins_channel"]
+        commandList = ["help", "ping", "credits", "gremlin", "list", "edit", "counter","daily_gremlins_channel", "gremlins_channel"]
 
         def getFieldContentCommand(name:str):
             response:[] = [f"/{name}", "", False]

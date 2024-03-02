@@ -1,7 +1,7 @@
 from discord import Interaction, Embed
 from discord.app_commands import default_permissions
 from util.functions import log
-import datetime
+from datetime import datetime
 
 def commandFunction(tree, client):
     @tree.command(name="delete_logs",description="A command used by M336 to clear the logs")
@@ -16,7 +16,7 @@ def commandFunction(tree, client):
         else:
             try:
                 f = open("logs.txt", "w")
-                f.write(f"[{datetime.date.today().strftime('%d/%m/%Y')} {datetime.now().strftime('%H:%M:%S')}] (RESET) Logs have been RESET\n")
+                f.write(f"[{datetime.today().strftime('%d/%m/%Y')} {datetime.now().strftime('%H:%M:%S')}] (RESET) Logs have been RESET\n")
                 f.close()
                 log(f"")
                 embed = Embed(title=" ",description="**Logs have been reset!**",colour=2067276)
